@@ -5,6 +5,8 @@
   "main": "app.js",
   "devDependencies": {},
   "scripts": {
+    "dev": "node --watch --env-file=.env app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
