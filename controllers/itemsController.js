@@ -10,7 +10,13 @@ async function getItems(req, res) {
   res.render('index', {
     title: 'Groceries Inventory',
     items: items,
+    calculatePercentOff,
   });
+}
+
+function calculatePercentOff(discounted_price, price) {
+  const percentOff = (1 - discounted_price / price) * 100;
+  return Math.round(percentOff);
 }
 
 export { getItems };

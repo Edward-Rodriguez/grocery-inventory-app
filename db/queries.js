@@ -26,7 +26,7 @@ async function getItemCategoriesByItemId(itemId) {
   try {
     const { rows } = await pool.query(
       `SELECT cat.name FROM item_categories ic
-       INNER JOIN categories cat ON ic.item_id = cat.id
+       INNER JOIN categories cat ON ic.category_id = cat.id
        WHERE item_id = $1`,
       [itemId],
     );

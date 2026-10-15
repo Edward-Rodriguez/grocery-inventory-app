@@ -6,16 +6,23 @@
     <% if (items && items.length > 0) { %>
       <% items.forEach(item => {  %>
         <div class="item-container">
-          <img src="<%= item.img_url %>" alt="<%= item.item_name %>"/>
+          <img src="<%= item.img_url || '/no-image.png'%>" alt="<%= item.item_name %>"/>
           <div class="item-name"><%= item.item_name %></div>
+          <div class="item-quantity"><%= item.quantity_in_stock %> in stock</div>
           <div class="item-brand"><%= item.brand_name %></div>
           <% if (item.categories && item.categories.length > 0) { %>
             <% item.categories.forEach(category => {  %>
               <span class="item-category"><%= category.name %></span>
             <% }) %>
           <% } %>
-          <div class="item-price"><% item.price %></div>
-          <div class="item-disc-price"><% item.discounted_price %></div>
+          <div class="item-price"><%= item.price %></div>
+          <div class="item-disc-price"><%= item.discounted_price %>
+            <span class="item-disc-percent-off">
+              (<%= calculatePercentOff(item.discounted_price, item.price) %>% off)</span>
+          </div>
+          <form action="<%= item.item_no %>/edit" method="GET">
+            <button class="edit-btn" type="submit">Edit</button>
+          </form>
         </div>
       <% }) %>
     <% } %>  </body>
