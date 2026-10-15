@@ -14,9 +14,20 @@ async function getItems(req, res) {
   });
 }
 
+async function editItem(req, res) {
+  const { itemId } = req.params;
+  const item = await db.getItemById(itemId);
+  item.categories = await db.getItemCategoriesByItemId(itemId);
+  console.log(item);
+  res.render('editProduct', {
+    title: 'Edit Product',
+    item: item,
+  });
+}
+
 function calculatePercentOff(discounted_price, price) {
   const percentOff = (1 - discounted_price / price) * 100;
   return Math.round(percentOff);
 }
 
-export { getItems };
+export { getItems, editItem };

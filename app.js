@@ -1,12 +1,12 @@
 import express from 'express';
-import indexRouter from './routes/indexRouter.js';
+import itemRouter from './routes/itemRouter.js';
 
 const app = express();
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
-app.use('/', indexRouter);
+app.use('/', itemRouter);
 
 const PORT = process.env.PORT || 3001;
 const HOST = process.env.HOST || 'localhost';

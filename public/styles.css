@@ -2,7 +2,6 @@
 
 html {
   box-sizing: border-box;
-  font-size: 62.5%;
 }
 
 *,
@@ -11,6 +10,11 @@ html {
   box-sizing: inherit;
   margin: 0;
   padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
 }
 
 img {

@@ -22,6 +22,20 @@ async function getAllItems() {
   }
 }
 
+async function getItemById(itemId) {
+  try {
+    const { rows } = await pool.query(
+      `SELECT * FROM items
+       WHERE item_no = $1`,
+      [itemId],
+    );
+    return rows[0];
+  } catch (err) {
+    console.error('Database query failed:', err.message);
+    throw err;
+  }
+}
+
 async function getItemCategoriesByItemId(itemId) {
   try {
     const { rows } = await pool.query(
@@ -37,4 +51,4 @@ async function getItemCategoriesByItemId(itemId) {
   }
 }
 
-export { getAllItems, getItemCategoriesByItemId };
+export { getAllItems, getItemById, getItemCategoriesByItemId };
