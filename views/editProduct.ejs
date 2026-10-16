@@ -8,21 +8,35 @@
         id="image-preview"
         src="<%= item.img_url || '/no-image.png'%>"
         alt="<%= item.item_name %>" />
+      <p id="img-load-error"></p>
       <label for="image-url">Image URL:</label>
       <input type="url" name="image-url" id="image-url" />
       <button id="apply-img-btn" type="button">Apply</button>
     </form>
 
     <script>
+      const image = document.querySelector('#image-preview');
+      const applyImageBtn = document.querySelector('#apply-img-btn');
+      const imgLoadError = document.querySelector('#img-load-error');
+      const previousImageUrl = image.src;
       function previewImage() {
+        applyImageBtn.disabled = true;
         const newImageUrl = document.querySelector('#image-url').value.trim();
-        const imagePreview = document.querySelector('#image-preview');
-        imagePreview.src = newImageUrl;
+        imgLoadError.textContent = '';
+        image.src = newImageUrl;
       }
 
-      document
-        .querySelector('#apply-img-btn')
-        .addEventListener('click', previewImage);
+      applyImageBtn.addEventListener('click', previewImage);
+
+      image.addEventListener('error', () => {
+        imgLoadError.textContent =
+          'Unable to load image. Please check the URL and try again.';
+        image.src = previousImageUrl;
+      });
+
+      image.addEventListener('load', () => {
+        applyImageBtn.disabled = false;
+      });
     </script>
   </body>
 </html>

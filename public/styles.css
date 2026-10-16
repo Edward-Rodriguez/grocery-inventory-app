@@ -20,8 +20,15 @@ body {
 img {
   width: 200px;
   height: auto;
+  object-fit: cover;
+  object-position: 50% 50%;
 }
 
 .item-category {
   border: 1px solid darkgreen;
+}
+
+#img-load-error {
+  color: darkred;
+  font-size: 10px;
 }
