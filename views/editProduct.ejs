@@ -24,7 +24,11 @@
         <option value="">--Please choose a brand--</option>
         <% if (brands && brands.length > 0 ) { %>
             <% brands.forEach(brand => { %>
-                <option value="<%= brand.id %>">
+                <option value="<%= brand.id %>" 
+                  <% if(item.brand_id === brand.id) { %>
+                    selected
+                  <% } %>
+                >
                     <img class="mng-icon" src="/settings_gray.svg" alt=""/>
                     <%= brand.name %>
                 </option>
@@ -49,6 +53,28 @@
       </fieldset> 
       </select>
       <a id="manage-link" href="/categories/manage">Manage Categories</a>
+      <label for="price">Price:</label>
+      <span class="currencyInput">
+         <img class="mng-icon" src="/dollar_sign.svg" alt=""/>
+          <input
+            type="number"
+            name="price"
+            inputmode="decimal"
+            id="price"
+            value="<%= item.price ?? '' %>"
+            required />
+      </span>
+      <label for="price">Discount Price:</label>
+      <span class="currencyInput">
+         <img class="mng-icon" src="/dollar_sign.svg" alt=""/>
+          <input
+            type="number"
+            name="discounted_price"
+            inputmode="decimal"
+            id="discounted_price"
+            value="<%= item.discounted_price ?? '' %>"/>
+      </span>
+      <button id="submit-edit-btn" type="submit">Save Changes</button>
     </form>
     <script src="/imagePreview.js"></script>
   </body>
