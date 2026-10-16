@@ -22,6 +22,26 @@ async function getAllItems() {
   }
 }
 
+async function getAllBrands() {
+  try {
+    const { rows } = await pool.query(`SELECT * FROM brands ORDER BY name`);
+    return rows;
+  } catch (err) {
+    console.error('Database query failed:', err.message);
+    throw err;
+  }
+}
+
+async function getAllCategories() {
+  try {
+    const { rows } = await pool.query(`SELECT * FROM categories ORDER BY name`);
+    return rows;
+  } catch (err) {
+    console.error('Database query failed:', err.message);
+    throw err;
+  }
+}
+
 async function getItemById(itemId) {
   try {
     const { rows } = await pool.query(
@@ -39,7 +59,7 @@ async function getItemById(itemId) {
 async function getItemCategoriesByItemId(itemId) {
   try {
     const { rows } = await pool.query(
-      `SELECT cat.name FROM item_categories ic
+      `SELECT cat.name, cat.id FROM item_categories ic
        INNER JOIN categories cat ON ic.category_id = cat.id
        WHERE item_id = $1`,
       [itemId],
@@ -51,4 +71,10 @@ async function getItemCategoriesByItemId(itemId) {
   }
 }
 
-export { getAllItems, getItemById, getItemCategoriesByItemId };
+export {
+  getAllItems,
+  getItemById,
+  getItemCategoriesByItemId,
+  getAllBrands,
+  getAllCategories,
+};

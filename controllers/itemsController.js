@@ -18,10 +18,13 @@ async function editItem(req, res) {
   const { itemId } = req.params;
   const item = await db.getItemById(itemId);
   item.categories = await db.getItemCategoriesByItemId(itemId);
-  console.log(item);
+  const brands = await db.getAllBrands();
+  const categories = await db.getAllCategories();
   res.render('editProduct', {
     title: 'Edit Product',
     item: item,
+    brands: brands,
+    categories: categories,
   });
 }
 

@@ -3,7 +3,7 @@
   <%- include('partials/header.ejs') %>
   <body>
     <h1><%= title %></h1>
-    <form action="<% item.item_no %>/edit" method="POST">
+    <form id="edit-form" action="<% item.item_no %>/edit" method="POST">
       <img
         id="image-preview"
         src="<%= item.img_url || '/no-image.png'%>"
@@ -12,31 +12,44 @@
       <label for="image-url">Image URL:</label>
       <input type="url" name="image-url" id="image-url" />
       <button id="apply-img-btn" type="button">Apply</button>
+      <label for="item_name">Name:</label>
+      <input
+        type="text"
+        name="item_name"
+        id="item_name"
+        value="<%= item.name ?? '' %>"
+        required />
+      <label for="brand-select">Brand:</label>
+      <select name="brand" id="brand-select">
+        <option value="">--Please choose a brand--</option>
+        <% if (brands && brands.length > 0 ) { %>
+            <% brands.forEach(brand => { %>
+                <option value="<%= brand.id %>">
+                    <img class="mng-icon" src="/settings_gray.svg" alt=""/>
+                    <%= brand.name %>
+                </option>
+            <% }); %>
+        <% } %>
+      </select>
+      <a id="manage-link" href="/brands/manage">Manage Brands</a>
+      <fieldset class="categories">
+        <legend>Categories</legend>
+        <% if (categories && categories.length > 0) { %>
+            <% categories.forEach(category => { %>
+                <label class="category-option">
+                    <input type="checkbox" name="categories" value="<%= category.id %>"  
+                    <% if (item.categories.some((itemCategory) => 
+                        itemCategory.id === category.id)) { %> 
+                        checked 
+                    <% } %> /> 
+                    <p><%= category.name %></p>
+                </label>
+            <% }) %>
+        <% } %>  
+      </fieldset> 
+      </select>
+      <a id="manage-link" href="/categories/manage">Manage Categories</a>
     </form>
-
-    <script>
-      const image = document.querySelector('#image-preview');
-      const applyImageBtn = document.querySelector('#apply-img-btn');
-      const imgLoadError = document.querySelector('#img-load-error');
-      const previousImageUrl = image.src;
-      function previewImage() {
-        applyImageBtn.disabled = true;
-        const newImageUrl = document.querySelector('#image-url').value.trim();
-        imgLoadError.textContent = '';
-        image.src = newImageUrl;
-      }
-
-      applyImageBtn.addEventListener('click', previewImage);
-
-      image.addEventListener('error', () => {
-        imgLoadError.textContent =
-          'Unable to load image. Please check the URL and try again.';
-        image.src = previousImageUrl;
-      });
-
-      image.addEventListener('load', () => {
-        applyImageBtn.disabled = false;
-      });
-    </script>
+    <script src="/imagePreview.js"></script>
   </body>
 </html>

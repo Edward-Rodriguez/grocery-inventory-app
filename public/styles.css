@@ -15,6 +15,15 @@ html {
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
+  display: grid;
+  justify-content: center;
+}
+
+#edit-form {
+  width: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 img {
@@ -31,4 +40,39 @@ img {
 #img-load-error {
   color: darkred;
   font-size: 10px;
+}
+
+#manage-link {
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.mng-icon {
+  height: 20px;
+  width: auto;
+}
+
+.remove-category-btn {
+  cursor: pointer;
+  height: 12px;
+  width: auto;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 6px;
+  row-gap: 4px;
+}
+
+.category-option {
+  font-size: 16px;
+  padding: 8px;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
