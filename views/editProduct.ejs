@@ -35,7 +35,10 @@
             <% }); %>
         <% } %>
       </select>
-      <a id="manage-link" href="/brands/manage">Manage Brands</a>
+      <div class="manage-link-container" title="Add/Remove brands">
+        <img src="/settings_gray.svg" alt="manage brands"/>
+        <a id="manage-link" href="/brands/manage">Manage Brands</a>
+      </div>
       <fieldset class="categories">
         <legend>Categories</legend>
         <% if (categories && categories.length > 0) { %>
@@ -52,7 +55,10 @@
         <% } %>  
       </fieldset> 
       </select>
-      <a id="manage-link" href="/categories/manage">Manage Categories</a>
+      <div class="manage-link-container" title="Add/Remove categories">
+        <img src="/settings_gray.svg" alt="manage categories"/>
+        <a id="manage-link" href="/categories/manage">Manage Categories</a>
+      </div>
       <label for="price">Price:</label>
       <span class="currencyInput">
          <img class="mng-icon" src="/dollar_sign.svg" alt=""/>

@@ -43,12 +43,20 @@ img {
 }
 
 #manage-link {
+  display: block;
   text-decoration: none;
   font-weight: 700;
   font-size: 12px;
 }
 
-.mng-icon {
+.manage-link-container {
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+}
+
+.mng-icon,
+.manage-link-container img {
   height: 20px;
   width: auto;
 }
