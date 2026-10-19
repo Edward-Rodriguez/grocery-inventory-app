@@ -71,10 +71,72 @@ async function getItemCategoriesByItemId(itemId) {
   }
 }
 
+async function updateItemById(
+  itemId,
+  img_url,
+  name,
+  quantity_in_stock,
+  brand_id,
+  price,
+  discounted_price,
+) {
+  try {
+    await pool.query(
+      `UPDATE items
+       SET name = $2,
+           quantity_in_stock = $3,
+           price = $4,
+           discounted_price = $5,
+           brand_id = $6,
+           img_url = $7
+       WHERE item_no = $1`,
+      [
+        itemId,
+        name,
+        quantity_in_stock,
+        price,
+        discounted_price,
+        brand_id,
+        img_url,
+      ],
+    );
+  } catch (err) {
+    console.error('Database query failed:', err.message);
+    throw err;
+  }
+}
+
+async function updateItemCategories(itemId, categories) {
+  try {
+    //convert to an array (for cases where only 1 category is chosen)
+    if (!Array.isArray(categories)) {
+      categories = categories ? [categories] : [];
+    }
+
+    await pool.query(`DELETE FROM item_categories WHERE item_id = $1`, [
+      itemId,
+    ]);
+    for (const category of categories) {
+      await pool.query(
+        `INSERT INTO item_categories (item_id, category_id) 
+         VALUES ($1, $2)
+         ON CONFLICT (item_id, category_id)
+         DO NOTHING`,
+        [itemId, category],
+      );
+    }
+  } catch (err) {
+    console.error('Database query failed:', err.message);
+    throw err;
+  }
+}
+
 export {
   getAllItems,
   getItemById,
   getItemCategoriesByItemId,
   getAllBrands,
   getAllCategories,
+  updateItemById,
+  updateItemCategories,
 };

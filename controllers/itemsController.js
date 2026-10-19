@@ -1,5 +1,7 @@
 import * as db from '../db/queries.js';
 
+const defaultImage = '../public/no-image.png';
+
 async function getItems(req, res) {
   const items = await db.getAllItems();
 
@@ -28,9 +30,33 @@ async function editItem(req, res) {
   });
 }
 
+async function updateItemPost(req, res) {
+  const { itemId } = req.params;
+  const {
+    imageUrl: img_url,
+    item_name: name,
+    quantity_in_stock,
+    brand: brand_id,
+    categories,
+    price,
+    discounted_price,
+  } = req.body;
+  await db.updateItemById(
+    itemId,
+    img_url,
+    name,
+    quantity_in_stock,
+    brand_id,
+    price,
+    discounted_price,
+  );
+  await db.updateItemCategories(itemId, categories);
+  res.redirect('/');
+}
+
 function calculatePercentOff(discounted_price, price) {
   const percentOff = (1 - discounted_price / price) * 100;
   return Math.round(percentOff);
 }
 
-export { getItems, editItem };
+export { getItems, editItem, updateItemPost };

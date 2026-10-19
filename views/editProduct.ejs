@@ -3,14 +3,14 @@
   <%- include('partials/header.ejs') %>
   <body>
     <h1><%= title %></h1>
-    <form id="edit-form" action="<% item.item_no %>/edit" method="POST">
+    <form id="edit-form" action="/<%= item.item_no %>/update" method="POST">
       <img
         id="image-preview"
         src="<%= item.img_url || '/no-image.png'%>"
         alt="<%= item.item_name %>" />
       <p id="img-load-error"></p>
-      <label for="image-url">Image URL:</label>
-      <input type="url" name="image-url" id="image-url" />
+      <label for="imageUrl">Update Image URL:</label>
+      <input type="url" name="imageUrl" id="imageUrl" value="<%= item.img_url %>"/>
       <button id="apply-img-btn" type="button">Apply</button>
       <label for="item_name">Name:</label>
       <input
@@ -19,8 +19,8 @@
         id="item_name"
         value="<%= item.name ?? '' %>"
         required />
-      <label for="brand-select">Brand:</label>
-      <select name="brand" id="brand-select">
+      <label for="brandSelect">Brand:</label>
+      <select name="brand" id="brandSelect" required>
         <option value="">--Please choose a brand--</option>
         <% if (brands && brands.length > 0 ) { %>
             <% brands.forEach(brand => { %>
@@ -28,17 +28,17 @@
                   <% if(item.brand_id === brand.id) { %>
                     selected
                   <% } %>
-                >
-                    <img class="mng-icon" src="/settings_gray.svg" alt=""/>
-                    <%= brand.name %>
+                ><%= brand.name %>
                 </option>
             <% }); %>
         <% } %>
       </select>
-      <div class="manage-link-container" title="Add/Remove brands">
-        <img src="/settings_gray.svg" alt="manage brands"/>
-        <a id="manage-link" href="/brands/manage">Manage Brands</a>
-      </div>
+      <a id="manage-link" href="/brands/manage">
+          <div class="manage-link-container" title="Add/Remove brands">
+            <img src="/settings_gray.svg" alt="manage brands"/>
+            Manage Brands
+          </div>
+      </a>
       <fieldset class="categories">
         <legend>Categories</legend>
         <% if (categories && categories.length > 0) { %>
@@ -59,6 +59,14 @@
         <img src="/settings_gray.svg" alt="manage categories"/>
         <a id="manage-link" href="/categories/manage">Manage Categories</a>
       </div>
+      <label for="quantity_in_stock">Quantity In Stock:</label>
+        <input
+        type="number"
+        name="quantity_in_stock"
+        inputmode="numeric"
+        id="quantity_in_stock"
+        value="<%= item.quantity_in_stock%>"
+        required />
       <label for="price">Price:</label>
       <span class="currencyInput">
          <img class="mng-icon" src="/dollar_sign.svg" alt=""/>

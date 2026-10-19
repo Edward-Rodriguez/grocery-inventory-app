@@ -5,7 +5,7 @@ const previousImageUrl = image.src;
 let imgLoadedSuccessfully = true;
 function previewImage() {
   applyImageBtn.disabled = true;
-  const newImageUrl = document.querySelector('#image-url').value.trim();
+  const newImageUrl = document.querySelector('#imageUrl').value.trim();
   imgLoadError.textContent = 'Loading...';
   image.src = newImageUrl;
   imgLoadedSuccessfully = true;
