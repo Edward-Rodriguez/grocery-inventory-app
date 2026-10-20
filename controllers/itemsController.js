@@ -54,9 +54,15 @@ async function updateItemPost(req, res) {
   res.redirect('/');
 }
 
+async function deleteItemPost(req, res) {
+  const { itemId } = req.params;
+  await db.deleteItemById(itemId);
+  res.redirect('/');
+}
+
 function calculatePercentOff(discounted_price, price) {
   const percentOff = (1 - discounted_price / price) * 100;
   return Math.round(percentOff);
 }
 
-export { getItems, editItem, updateItemPost };
+export { getItems, editItem, updateItemPost, deleteItemPost };

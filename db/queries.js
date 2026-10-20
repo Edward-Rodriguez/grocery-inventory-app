@@ -106,6 +106,15 @@ async function updateItemById(
   }
 }
 
+async function deleteItemById(itemId) {
+  try {
+    await pool.query(`DELETE FROM items WHERE item_no = $1`, [itemId]);
+  } catch (err) {
+    console.error('Database query failed:', err.message);
+    throw err;
+  }
+}
+
 async function updateItemCategories(itemId, categories) {
   try {
     //convert to an array (for cases where only 1 category is chosen)
@@ -139,4 +148,5 @@ export {
   getAllCategories,
   updateItemById,
   updateItemCategories,
+  deleteItemById,
 };

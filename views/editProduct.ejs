@@ -55,10 +55,12 @@
         <% } %>  
       </fieldset> 
       </select>
-      <div class="manage-link-container" title="Add/Remove categories">
-        <img src="/settings_gray.svg" alt="manage categories"/>
-        <a id="manage-link" href="/categories/manage">Manage Categories</a>
-      </div>
+       <a id="manage-link" href="/categories/manage">
+          <div class="manage-link-container" title="Add/Remove categories">
+            <img src="/settings_gray.svg" alt="manage categories"/>
+            Manage Categories
+          </div>
+      </a>
       <label for="quantity_in_stock">Quantity In Stock:</label>
         <input
         type="number"
@@ -89,6 +91,9 @@
             value="<%= item.discounted_price ?? '' %>"/>
       </span>
       <button id="submit-edit-btn" type="submit">Save Changes</button>
+    </form>
+    <form action="/<%= item.item_no %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?')">
+        <button id="delete-item-btn" type="submit">Delete Item</button>
     </form>
     <script src="/imagePreview.js"></script>
   </body>
