@@ -100,7 +100,8 @@ img {
   height: 100%;
 }
 
-#submit-edit-btn {
+#submit-edit-btn,
+#delete-item-btn {
   margin-top: 20px;
   color: #fff;
   background-color: #198754;
@@ -127,4 +128,13 @@ img {
 
 #submit-edit-btn:active {
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.24);
+}
+
+#delete-item-btn {
+  width: 100%;
+  background-color: rgba(139, 0, 0, 0.664);
+}
+
+#delete-item-btn:hover {
+  background-color: rgba(139, 0, 0, 0.966);
 }
