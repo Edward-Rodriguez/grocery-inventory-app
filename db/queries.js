@@ -32,6 +32,20 @@ async function getAllBrands() {
   }
 }
 
+async function getBrandProductCount(brandId) {
+  try {
+    const { rows } = await pool.query(
+      `SELECT COUNT(*) FROM items
+       WHERE brand_id = $1`,
+      [brandId],
+    );
+    return rows[0];
+  } catch (err) {
+    console.error('Database query failed:', err.message);
+    throw err;
+  }
+}
+
 async function getAllCategories() {
   try {
     const { rows } = await pool.query(`SELECT * FROM categories ORDER BY name`);
@@ -149,4 +163,5 @@ export {
   updateItemById,
   updateItemCategories,
   deleteItemById,
+  getBrandProductCount,
 };
