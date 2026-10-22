@@ -176,7 +176,7 @@ img {
 
 .brand {
   display: grid;
-  grid-template-columns: 1fr 100px;
+  grid-template-columns: 1fr min-content;
   grid-template-rows: auto;
   grid-template-areas:
     'brand deleteBtn'
@@ -201,5 +201,18 @@ img {
 }
 
 .brand form button {
+  cursor: pointer;
   width: 100%;
+  background: none;
+  border: none;
+  visibility: hidden;
+}
+
+.brand img {
+  height: 20px;
+  width: auto;
+}
+
+.brand:hover #delete-brand-btn {
+  visibility: visible;
 }

@@ -3,6 +3,7 @@
   <%- include('partials/header.ejs') %>
   <body>
     <h1><%= title %></h1>
+    <%- include("partials/errors.ejs") %>
     <form id="edit-form" action="/<%= item.item_no %>/update" method="POST">
       <img
         id="image-preview"
@@ -65,6 +66,7 @@
         <input
         type="number"
         name="quantity_in_stock"
+        min="0"
         inputmode="numeric"
         id="quantity_in_stock"
         value="<%= item.quantity_in_stock%>"
@@ -74,7 +76,9 @@
          <img class="mng-icon" src="/dollar_sign.svg" alt=""/>
           <input
             type="number"
+            step="any"
             name="price"
+            min="0"
             inputmode="decimal"
             id="price"
             value="<%= item.price ?? '' %>"
@@ -85,7 +89,9 @@
          <img class="mng-icon" src="/dollar_sign.svg" alt=""/>
           <input
             type="number"
+            step="any"
             name="discounted_price"
+            min="0"
             inputmode="decimal"
             id="discounted_price"
             value="<%= item.discounted_price ?? '' %>"/>
