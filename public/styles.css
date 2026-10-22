@@ -144,3 +144,62 @@ img {
 #delete-item-btn:hover {
   color: rgba(139, 0, 0, 0.664);
 }
+
+#mng-brands-container {
+  max-width: 600px;
+  display: grid;
+  grid-template-columns: 200px 1fr 100px;
+  grid-template-areas:
+    'header totalBrandsLabel addNewBtn'
+    'brandsList . .';
+  align-items: center;
+}
+
+#mng-brands-container h1 {
+  grid-area: header;
+}
+
+.quantity-label {
+  grid-area: totalBrandsLabel;
+}
+
+#add-new-btn-form {
+  grid-area: addNewBtn;
+}
+
+#brand-list {
+  grid-area: brandsList;
+  grid-column: span 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'brand deleteBtn'
+    'productCount deleteBtn';
+  border-bottom: 2px solid lightgray;
+  border-radius: 2px;
+  padding: 12px;
+}
+
+.brand h2 {
+  grid-area: brand;
+}
+
+.brand p {
+  grid-area: productCount;
+}
+
+.brand form {
+  grid-area: deleteBtn;
+  align-self: center;
+  margin: 0;
+}
+
+.brand form button {
+  width: 100%;
+}
