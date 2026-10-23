@@ -1,5 +1,5 @@
 <!-- views/partials/errors.ejs -->
-<% if (locals.errors) {%>
+<% if (locals.errors && locals.errors.length > 0) {%>
   <ul class="errors">
     <% errors.forEach(function(error) { %>
       <li><%= error.msg %></li>

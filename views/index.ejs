@@ -17,8 +17,11 @@
           <% } %>
           <div class="item-price"><%= item.price %></div>
           <div class="item-disc-price"><%= item.discounted_price %>
-            <span class="item-disc-percent-off">
-              (<%= calculatePercentOff(item.discounted_price, item.price) %>% off)</span>
+            <% if(item.discounted_price && item.discounted_price > 0) { %>
+              <span class="item-disc-percent-off">
+                (<%= calculatePercentOff(item.discounted_price, item.price) %>% off)
+              </span>
+            <% } %>
           </div>
           <form action="<%= item.item_no %>/edit" method="GET">
             <button class="edit-btn" type="submit">Edit</button>

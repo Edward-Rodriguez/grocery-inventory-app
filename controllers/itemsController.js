@@ -43,7 +43,7 @@ const validateItem = [
     .custom((value, { req }) => {
       if (value >= Number(req.body.price)) {
         throw new Error(discountErr);
-      }
+      } else return true;
     }),
 ];
 
@@ -88,6 +88,8 @@ const updateItemPost = [
 
     if (!errors.isEmpty()) {
       const viewData = await getEditItemData(itemId);
+      console.log(errors);
+
       return res
         .status(400)
         .render('editProduct', { ...viewData, errors: errors });
