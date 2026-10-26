@@ -85,6 +85,26 @@ async function getItemCategoriesByItemId(itemId) {
   }
 }
 
+async function addItem(
+  img_url,
+  name,
+  quantity_in_stock,
+  brand_id,
+  price,
+  discounted_price,
+) {
+  try {
+    const { rows } = await pool.query(
+      `INSERT INTO items (name, quantity_in_stock, price, discounted_price, brand_id, img_url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING item_no`,
+      [name, quantity_in_stock, price, discounted_price, brand_id, img_url],
+    );
+    return rows[0];
+  } catch (err) {
+    console.error('Database query failed:', err.message);
+    throw err;
+  }
+}
+
 async function updateItemById(
   itemId,
   img_url,
@@ -164,4 +184,5 @@ export {
   updateItemCategories,
   deleteItemById,
   getBrandProductCount,
+  addItem,
 };

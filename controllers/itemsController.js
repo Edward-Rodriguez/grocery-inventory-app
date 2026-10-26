@@ -61,6 +61,65 @@ async function getItems(req, res) {
   });
 }
 
+async function addItemGet(req, res) {
+  const brands = await db.getAllBrands();
+  const categories = await db.getAllCategories();
+  res.render('editProduct', {
+    title: 'Add Product',
+    newProduct: true,
+    brands,
+    categories,
+    item: {
+      item_no: null,
+      img_url: null,
+      item_name: null,
+      brand_id: null,
+      quantity_in_stock: null,
+      price: null,
+      discounted_price: null,
+      categories: null,
+    },
+  });
+}
+
+const addItemPost = [
+  validateItem,
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(errors);
+
+      return res.status(400).render('editProduct', {
+        title: 'Add Product',
+        errors: errors,
+        newProduct: true,
+      });
+    }
+    const {
+      imageUrl: img_url,
+      item_name: name,
+      quantity_in_stock,
+      brand: brand_id,
+      categories,
+      price,
+      discounted_price,
+    } = matchedData(req);
+    const newItemId = (
+      await db.addItem(
+        img_url,
+        name,
+        quantity_in_stock,
+        brand_id,
+        price,
+        discounted_price,
+      )
+    ).item_no;
+
+    await db.updateItemCategories(newItemId, categories);
+    res.redirect('/');
+  },
+];
+
 async function editItem(req, res) {
   const { itemId } = req.params;
   const viewData = await getEditItemData(itemId);
@@ -77,6 +136,7 @@ async function getEditItemData(itemId) {
     item,
     brands,
     categories,
+    newProduct: false,
   };
 }
 
@@ -129,4 +189,11 @@ function calculatePercentOff(discounted_price, price) {
   return Math.round(percentOff);
 }
 
-export { getItems, editItem, updateItemPost, deleteItemPost };
+export {
+  getItems,
+  editItem,
+  updateItemPost,
+  deleteItemPost,
+  addItemPost,
+  addItemGet,
+};

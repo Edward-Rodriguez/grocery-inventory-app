@@ -4,7 +4,11 @@
   <body>
     <h1><%= title %></h1>
     <%- include("partials/errors.ejs") %>
-    <form id="edit-form" action="/<%= item.item_no %>/update" method="POST">
+    <form 
+      id="edit-form" 
+      method="POST" 
+      action="<%= newProduct ? '/new' : '/'+ item.item_no + '/update'%>"
+    >
       <img
         id="image-preview"
         src="<%= item.img_url || '/no-image.png'%>"
@@ -46,7 +50,7 @@
             <% categories.forEach(category => { %>
                 <label class="category-option">
                     <input type="checkbox" name="categories" value="<%= category.id %>"  
-                    <% if (item.categories.some((itemCategory) => 
+                    <% if (item.categories && item.categories.some((itemCategory) => 
                         itemCategory.id === category.id)) { %> 
                         checked 
                     <% } %> /> 
@@ -69,7 +73,7 @@
         min="0"
         inputmode="numeric"
         id="quantity_in_stock"
-        value="<%= item.quantity_in_stock%>"
+        value="<%= item.quantity_in_stock ?? 0 %>"
         required />
       <label for="price">Price:</label>
       <span class="currencyInput">
