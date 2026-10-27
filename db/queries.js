@@ -12,7 +12,7 @@ async function getAllItems() {
             items.img_url,
             brands.name AS brand_name
         FROM items
-        INNER JOIN brands
+        LEFT JOIN brands
         ON items.brand_id = brands.id`,
     );
     return rows;
@@ -149,6 +149,15 @@ async function deleteItemById(itemId) {
   }
 }
 
+async function deleteBrandById(brandId) {
+  try {
+    await pool.query(`DELETE FROM brands WHERE id = $1`, [brandId]);
+  } catch (err) {
+    console.error('Database query failed:', err.message);
+    throw err;
+  }
+}
+
 async function updateItemCategories(itemId, categories) {
   try {
     //convert to an array (for cases where only 1 category is chosen)
@@ -185,4 +194,5 @@ export {
   deleteItemById,
   getBrandProductCount,
   addItem,
+  deleteBrandById,
 };

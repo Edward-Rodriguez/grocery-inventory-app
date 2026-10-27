@@ -14,4 +14,10 @@ async function getBrands(req, res) {
   });
 }
 
-export { getBrands };
+async function deleteBrand(req, res) {
+  const { brandId } = req.params;
+  await db.deleteBrandById(brandId);
+  res.redirect('/brands/manage');
+}
+
+export { getBrands, deleteBrand };

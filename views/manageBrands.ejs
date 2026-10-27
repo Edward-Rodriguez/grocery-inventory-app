@@ -20,9 +20,9 @@
               <form
                 action="<%= brand.id %>/delete"
                 method="POST"
-                onsubmit="return confirm('Are you sure you want to delete this brand?');">
-                <button id="delete-brand-btn" type="submit">
-                  <img src="/close.svg" alt="delete"/>
+                onsubmit="return confirm('Are you sure you want to delete this brand?\n*Note: Items under this brand will not be removed, only the brand itself.');">
+                <button class="delete-entity-btn" type="submit">
+                  <!-- <img class="delete-icon" src="/delete.svg" alt="delete"/> -->
                 </button>
               </form>
             </div>

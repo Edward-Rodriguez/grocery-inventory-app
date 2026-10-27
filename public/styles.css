@@ -194,7 +194,7 @@ img {
   grid-area: productCount;
 }
 
-.brand form {
+/* .brand form {
   grid-area: deleteBtn;
   align-self: center;
   margin: 0;
@@ -209,10 +209,30 @@ img {
 }
 
 .brand img {
-  height: 20px;
+  height: 40px;
   width: auto;
 }
 
 .brand:hover #delete-brand-btn {
   visibility: visible;
+}
+
+.brand:hover #delete-brand-btn {
+  visibility: visible;
+} */
+
+.delete-entity-btn {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  background-image: url('/delete_gray.svg');
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.3s ease;
+}
+
+.delete-entity-btn:hover {
+  background-image: url('/delete_red.svg');
 }
