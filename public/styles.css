@@ -148,15 +148,21 @@ img {
 #mng-brands-container {
   max-width: 600px;
   display: grid;
-  grid-template-columns: 200px 1fr 100px;
+  grid-template-columns: 1fr 100px;
   grid-template-areas:
-    'header totalBrandsLabel addNewBtn'
-    'brandsList . .';
+    'header totalBrandsLabel'
+    'pageDesc .'
+    'addNewBtn addNewBtn'
+    'brandsList .';
   align-items: center;
 }
 
 #mng-brands-container h1 {
   grid-area: header;
+}
+
+#page-description {
+  grid-area: pageDesc;
 }
 
 .quantity-label {
@@ -165,9 +171,26 @@ img {
 
 #add-new-btn-form {
   grid-area: addNewBtn;
+  display: grid;
+  grid-template-columns: 1fr 100px;
+}
+
+#add-new-btn-form label {
+  grid-column: span 2;
+  font-weight: 700;
+  font-size: 18;
+  padding-left: 9px;
+}
+
+#add-new-btn-form input {
+  height: 32px;
+  padding: 8px;
+  border: 1px solid lightgray;
+  border-radius: 12px;
 }
 
 #brand-list {
+  width: 100%;
   grid-area: brandsList;
   grid-column: span 3;
   display: flex;

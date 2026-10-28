@@ -4,11 +4,14 @@
   <body>
     <div id="mng-brands-container">
       <h1>Manage Brands</h1>
-      <div class="quantity-label"><%= brands.length %> brands's</div>
-      <form id="add-new-btn-form" action="new" method="GET">
+       <span class="quantity-label"><%= brands.length %> brands's</span>
+      <div id="page-description">Add, view, and manage your inventory brands.</div>
+      <form id="add-new-btn-form" action="new" method="POST">
+        <label for="brand">Add new brand</label>
+        <input type="text" name="brand" id="brand" placeholder="Enter brand name..." required/>
         <button type="submit">
           <img class="mng-icon" src="/add-new.svg" alt="add new" />
-          Add New
+          Add
         </button>
       </form>
       <% if (brands && brands.length > 0) { %>

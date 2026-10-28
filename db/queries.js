@@ -24,7 +24,9 @@ async function getAllItems() {
 
 async function getAllBrands() {
   try {
-    const { rows } = await pool.query(`SELECT * FROM brands ORDER BY name`);
+    const { rows } = await pool.query(
+      `SELECT * FROM brands ORDER BY LOWER(name)`,
+    );
     return rows;
   } catch (err) {
     console.error('Database query failed:', err.message);
@@ -140,6 +142,15 @@ async function updateItemById(
   }
 }
 
+async function addBrand(brandName) {
+  try {
+    await pool.query(`INSERT INTO brands (name) VALUES ($1)`, [brandName]);
+  } catch (err) {
+    console.error('Database query failed:', err.message);
+    throw err;
+  }
+}
+
 async function deleteItemById(itemId) {
   try {
     await pool.query(`DELETE FROM items WHERE item_no = $1`, [itemId]);
@@ -195,4 +206,5 @@ export {
   getBrandProductCount,
   addItem,
   deleteBrandById,
+  addBrand,
 };

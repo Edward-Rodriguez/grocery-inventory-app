@@ -14,10 +14,16 @@ async function getBrands(req, res) {
   });
 }
 
+async function addNewBrand(req, res) {
+  const { brand } = req.body;
+  await db.addBrand(brand);
+  res.redirect('/brands/manage');
+}
+
 async function deleteBrand(req, res) {
   const { brandId } = req.params;
   await db.deleteBrandById(brandId);
   res.redirect('/brands/manage');
 }
 
-export { getBrands, deleteBrand };
+export { getBrands, deleteBrand, addNewBrand };
