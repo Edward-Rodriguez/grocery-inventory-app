@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <%- include('partials/header.ejs') %>
+  <body>
+    <div id="mng-categories-container">
+      <h1>Manage Categories</h1>
+       <span class="quantity-label"><%= categories.length %> categories</span>
+      <div id="page-description">Add, view, and manage your inventory categories.</div>
+      <form id="add-new-btn-form" action="new" method="POST">
+        <label for="category">Add new category</label>
+        <input type="text" name="category" id="category" placeholder="Enter category name..." required/>
+        <button type="submit">
+          <img class="mng-icon" src="/add-new.svg" alt="add new" />
+          Add
+        </button>
+      </form>
+      <% if (categories && categories.length > 0) { %>
+        <div id="category-list">
+          <% categories.forEach(category => { %>
+            <div class="category">
+              <h2><%= category.name %></h2>
+              <p><%= category.productCount %> products</p>
+              <form
+                action="<%= category.id %>/delete"
+                method="POST"
+                onsubmit="return confirm('Are you sure you want to delete this category?\n*Note: Items under this category will not be removed, only the category itself.');">
+                <button class="delete-entity-btn" type="submit">
+                </button>
+              </form>
+            </div>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+  </body>
+</html>

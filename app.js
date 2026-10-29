@@ -1,6 +1,7 @@
 import express from 'express';
 import itemRouter from './routes/itemRouter.js';
 import brandRouter from './routes/brandRouter.js';
+import categoryRouter from './routes/categoryRouter.js';
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use('/', itemRouter);
 app.use('/brands', brandRouter);
+app.use('/categories', categoryRouter);
 
 const PORT = process.env.PORT || 3001;
 const HOST = process.env.HOST || 'localhost';

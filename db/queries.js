@@ -50,8 +50,24 @@ async function getBrandProductCount(brandId) {
 
 async function getAllCategories() {
   try {
-    const { rows } = await pool.query(`SELECT * FROM categories ORDER BY name`);
+    const { rows } = await pool.query(
+      `SELECT * FROM categories ORDER BY LOWER(name)`,
+    );
     return rows;
+  } catch (err) {
+    console.error('Database query failed:', err.message);
+    throw err;
+  }
+}
+
+async function getCategoryProductCount(categoryId) {
+  try {
+    const { rows } = await pool.query(
+      `SELECT COUNT(*) FROM item_categories
+       WHERE category_id = $1`,
+      [categoryId],
+    );
+    return rows[0];
   } catch (err) {
     console.error('Database query failed:', err.message);
     throw err;
@@ -151,6 +167,17 @@ async function addBrand(brandName) {
   }
 }
 
+async function addCategory(categoryName) {
+  try {
+    await pool.query(`INSERT INTO categories (name) VALUES ($1)`, [
+      categoryName,
+    ]);
+  } catch (err) {
+    console.error('Database query failed:', err.message);
+    throw err;
+  }
+}
+
 async function deleteItemById(itemId) {
   try {
     await pool.query(`DELETE FROM items WHERE item_no = $1`, [itemId]);
@@ -163,6 +190,15 @@ async function deleteItemById(itemId) {
 async function deleteBrandById(brandId) {
   try {
     await pool.query(`DELETE FROM brands WHERE id = $1`, [brandId]);
+  } catch (err) {
+    console.error('Database query failed:', err.message);
+    throw err;
+  }
+}
+
+async function deleteCategoryById(categoryId) {
+  try {
+    await pool.query(`DELETE FROM categories WHERE id = $1`, [categoryId]);
   } catch (err) {
     console.error('Database query failed:', err.message);
     throw err;
@@ -207,4 +243,7 @@ export {
   addItem,
   deleteBrandById,
   addBrand,
+  addCategory,
+  deleteCategoryById,
+  getCategoryProductCount,
 };

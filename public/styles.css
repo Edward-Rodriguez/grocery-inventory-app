@@ -145,19 +145,21 @@ img {
   color: rgba(139, 0, 0, 0.664);
 }
 
-#mng-brands-container {
+#mng-brands-container,
+#mng-categories-container {
   max-width: 600px;
   display: grid;
   grid-template-columns: 1fr 100px;
   grid-template-areas:
-    'header totalBrandsLabel'
+    'header totalItemsLabel'
     'pageDesc .'
     'addNewBtn addNewBtn'
-    'brandsList .';
+    'list .';
   align-items: center;
 }
 
-#mng-brands-container h1 {
+#mng-brands-container,
+#mng-categories-container h1 {
   grid-area: header;
 }
 
@@ -166,7 +168,7 @@ img {
 }
 
 .quantity-label {
-  grid-area: totalBrandsLabel;
+  grid-area: totalItemsLabel;
 }
 
 #add-new-btn-form {
@@ -189,41 +191,47 @@ img {
   border-radius: 12px;
 }
 
-#brand-list {
+#brand-list,
+#category-list {
   width: 100%;
-  grid-area: brandsList;
+  grid-area: list;
   grid-column: span 3;
   display: flex;
   flex-direction: column;
 }
 
-.brand {
+.brand,
+.category {
   display: grid;
   grid-template-columns: 1fr min-content;
   grid-template-rows: auto;
   grid-template-areas:
-    'brand deleteBtn'
+    'entry deleteBtn'
     'productCount deleteBtn';
   border-bottom: 2px solid lightgray;
   border-radius: 2px;
   padding: 12px;
 }
 
-.brand h2 {
-  grid-area: brand;
+.brand h2,
+.category h2 {
+  grid-area: entry;
 }
 
-.brand p {
+.brand p,
+.category p {
   grid-area: productCount;
 }
 
-/* .brand form {
+.brand form,
+.category form {
   grid-area: deleteBtn;
   align-self: center;
   margin: 0;
 }
 
-.brand form button {
+/* .brand form button,
+.category form button {
   cursor: pointer;
   width: 100%;
   background: none;
@@ -231,16 +239,14 @@ img {
   visibility: hidden;
 }
 
-.brand img {
+.brand img,
+.category img {
   height: 40px;
   width: auto;
 }
 
-.brand:hover #delete-brand-btn {
-  visibility: visible;
-}
-
-.brand:hover #delete-brand-btn {
+.brand:hover .delete-entity-btn,
+.category:hover .delete-entity-btn {
   visibility: visible;
 } */
 
@@ -254,8 +260,14 @@ img {
   background-size: cover;
   background-position: center;
   transition: background-image 0.3s ease;
+  visibility: hidden;
 }
 
 .delete-entity-btn:hover {
   background-image: url('/delete_red.svg');
+}
+
+.brand:hover .delete-entity-btn,
+.category:hover .delete-entity-btn {
+  visibility: visible;
 }
