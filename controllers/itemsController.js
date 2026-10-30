@@ -10,8 +10,7 @@ const lengthErr = (length) => 'must be between 3 and ' + length + ' characters';
 const validateItem = [
   body('imageUrl')
     .trim()
-    .customSanitizer((value) => (value === '' ? defaultImage : value))
-    .optional({ values: 'null' })
+    .optional({ values: 'falsy' })
     .isURL()
     .withMessage(urlErr),
   body('item_name')
@@ -91,8 +90,11 @@ const addItemPost = [
 
       return res.status(400).render('editProduct', {
         title: 'Add Product',
-        errors: errors,
+        errors: errors.array(),
         newProduct: true,
+        item: {},
+        brands: await db.getAllBrands(),
+        categories: await db.getAllCategories(),
       });
     }
     const {
@@ -152,7 +154,7 @@ const updateItemPost = [
 
       return res
         .status(400)
-        .render('editProduct', { ...viewData, errors: errors });
+        .render('editProduct', { ...viewData, errors: errors.array() });
     }
 
     const {

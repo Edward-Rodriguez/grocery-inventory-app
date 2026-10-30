@@ -230,26 +230,6 @@ img {
   margin: 0;
 }
 
-/* .brand form button,
-.category form button {
-  cursor: pointer;
-  width: 100%;
-  background: none;
-  border: none;
-  visibility: hidden;
-}
-
-.brand img,
-.category img {
-  height: 40px;
-  width: auto;
-}
-
-.brand:hover .delete-entity-btn,
-.category:hover .delete-entity-btn {
-  visibility: visible;
-} */
-
 .delete-entity-btn {
   width: 30px;
   height: 30px;
@@ -270,4 +250,8 @@ img {
 .brand:hover .delete-entity-btn,
 .category:hover .delete-entity-btn {
   visibility: visible;
+}
+
+.errors {
+  color: darkred;
 }
