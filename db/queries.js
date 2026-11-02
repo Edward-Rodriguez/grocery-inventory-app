@@ -74,6 +74,21 @@ async function getCategoryProductCount(categoryId) {
   }
 }
 
+async function getUncategorizedItems() {
+  try {
+    const { rows } = await pool.query(
+      `SELECT i.* FROM items i
+       LEFT JOIN item_categories ic
+       ON i.item_no = ic.item_id
+       WHERE ic.item_id IS NULL`,
+    );
+    return rows;
+  } catch (err) {
+    console.error('Database query failed:', err.message);
+    throw err;
+  }
+}
+
 async function getItemById(itemId) {
   try {
     const { rows } = await pool.query(
@@ -246,4 +261,5 @@ export {
   addCategory,
   deleteCategoryById,
   getCategoryProductCount,
+  getUncategorizedItems,
 };

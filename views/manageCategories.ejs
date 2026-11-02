@@ -14,23 +14,29 @@
           Add
         </button>
       </form>
-      <% if (categories && categories.length > 0) { %>
-        <div id="category-list">
-          <% categories.forEach(category => { %>
-            <div class="category">
-              <h2><%= category.name %></h2>
-              <p><%= category.productCount %> products</p>
-              <form
-                action="<%= category.id %>/delete"
-                method="POST"
-                onsubmit="return confirm('Are you sure you want to delete this category?\n*Note: Items under this category will not be removed, only the category itself.');">
-                <button class="delete-entity-btn" type="submit">
-                </button>
-              </form>
-            </div>
-          <% }) %>
+      <div id="category-list">
+        <% if (categories && categories.length > 0) { %>        
+            <% categories.forEach(category => { %>
+              <div class="category">
+                <h2><%= category.name %></h2>
+                <p><%= category.productCount %> products</p>
+                <form
+                  action="<%= category.id %>/delete"
+                  method="POST"
+                  onsubmit="return confirm('Are you sure you want to delete this category?\n*Note: Items under this category will not be removed, only the category itself.');">
+                  <button class="delete-entity-btn" type="submit">
+                  </button>
+                </form>
+              </div>
+            <% }) %>
+        <% } %>
+        <% if (unCategorized && unCategorized.length > 0) { %>
+        <div class="category">
+          <h2>*Uncategorized</h2>
+          <p><%= unCategorized.length %> products</p>
         </div>
-      <% } %>
+        <% } %>
+      </div>
     </div>
   </body>
 </html>

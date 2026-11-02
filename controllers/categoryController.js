@@ -2,6 +2,7 @@ import * as db from '../db/queries.js';
 
 async function getCategories(req, res) {
   const categories = await db.getAllCategories();
+  const unCategorizedItems = await db.getUncategorizedItems();
 
   for (const category of categories) {
     const count = (await db.getCategoryProductCount(category.id)).count;
@@ -11,6 +12,7 @@ async function getCategories(req, res) {
   res.render('manageCategories', {
     title: 'Manage Categories',
     categories: categories,
+    unCategorized: unCategorizedItems,
   });
 }
 
