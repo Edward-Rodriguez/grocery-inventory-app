@@ -2,34 +2,37 @@
 <html lang="en">
   <%- include('partials/header.ejs') %>
   <body>
-    <h1>Grocery Inventory</h1>
-    <form action="/new" method="get">
-      <button type="submit">Add New Item</button>
-    </form>
-    <% if (items && items.length > 0) { %>
-      <% items.forEach(item => {  %>
-        <div class="item-container">
-          <img src="<%= item.img_url || '/no-image.png'%>" alt="<%= item.item_name %>"/>
-          <div class="item-name"><%= item.item_name %></div>
-          <div class="item-quantity"><%= item.quantity_in_stock %> in stock</div>
-          <div class="item-brand"><%= item.brand_name ?? 'no-brand'%></div>
-          <% if (item.categories && item.categories.length > 0) { %>
-            <% item.categories.forEach(category => {  %>
-              <span class="item-category"><%= category.name %></span>
-            <% }) %>
-          <% } %>
-          <div class="item-price"><%= item.price %></div>
-          <div class="item-disc-price"><%= item.discounted_price %>
-            <% if(item.discounted_price && item.discounted_price > 0) { %>
-              <span class="item-disc-percent-off">
-                (<%= calculatePercentOff(item.discounted_price, item.price) %>% off)
-              </span>
+    <%- include('partials/nav.ejs') %>
+    <div class="inventory-container">
+      <form action="/new" method="get">
+        <button type="submit">Add New Item</button>
+      </form>
+      <% if (items && items.length > 0) { %>
+        <% items.forEach(item => {  %>
+          <div class="item-container">
+            <img src="<%= item.img_url || '/no-image.png'%>" alt="<%= item.item_name %>"/>
+            <div class="item-name"><%= item.item_name %></div>
+            <div class="item-quantity"><%= item.quantity_in_stock %> in stock</div>
+            <div class="item-brand"><%= item.brand_name ?? 'no-brand'%></div>
+            <% if (item.categories && item.categories.length > 0) { %>
+              <% item.categories.forEach(category => {  %>
+                <span class="item-category"><%= category.name %></span>
+              <% }) %>
             <% } %>
+            <div class="item-price"><%= item.price %></div>
+            <div class="item-disc-price"><%= item.discounted_price %>
+              <% if(item.discounted_price && item.discounted_price > 0) { %>
+                <span class="item-disc-percent-off">
+                  (<%= calculatePercentOff(item.discounted_price, item.price) %>% off)
+                </span>
+              <% } %>
+            </div>
+            <form action="<%= item.item_no %>/edit" method="GET">
+              <button class="edit-btn" type="submit">Edit</button>
+            </form>
           </div>
-          <form action="<%= item.item_no %>/edit" method="GET">
-            <button class="edit-btn" type="submit">Edit</button>
-          </form>
-        </div>
-      <% }) %>
-    <% } %>  </body>
+        <% }) %>
+      <% } %>
+    </div> 
+  </body>
 </html>
