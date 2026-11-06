@@ -54,9 +54,29 @@ async function getItems(req, res) {
   }
 
   res.render('index', {
-    title: 'Groceries Inventory',
+    title: 'Grocery Inventory',
     items: items,
     calculatePercentOff,
+    searchString: '',
+  });
+}
+
+async function itemsSearchGet(req, res) {
+  const { search: searchString } = req.query;
+  const items = await db.getAllItems();
+  const itemsFiltered = items.filter((item) =>
+    item.item_name.toLowerCase().includes(searchString.trim()),
+  );
+
+  for (const item of itemsFiltered) {
+    item.categories = await db.getItemCategoriesByItemId(item.item_no);
+  }
+
+  res.render('index', {
+    title: 'Grocery Inventory',
+    items: itemsFiltered,
+    calculatePercentOff,
+    searchString: searchString || '',
   });
 }
 
@@ -198,4 +218,5 @@ export {
   deleteItemPost,
   addItemPost,
   addItemGet,
+  itemsSearchGet,
 };

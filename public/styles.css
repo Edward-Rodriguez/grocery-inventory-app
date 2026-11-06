@@ -16,11 +16,39 @@ body {
   width: 100%;
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
+  --main-bg-color: #4c705b;
+}
+
+.page-container {
+  margin: 0 auto;
+  max-width: 640px;
 }
 
 .inventory-container {
   display: grid;
   justify-content: center;
+}
+
+#new-item-submit-btn {
+  background-color: var(--main-bg-color);
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+#new-item-submit-btn img {
+  height: 24px;
+  width: auto;
+}
+
+#new-item-submit-btn:hover {
+  background-color: #38473a;
 }
 
 #edit-form {
@@ -264,7 +292,7 @@ nav {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: #3f5242;
+  background-color: var(--main-bg-color);
   padding: 8px 16px;
 }
 
@@ -299,7 +327,7 @@ nav {
   width: max-content;
   position: absolute;
   top: calc(100% + 8px);
-  right: 0;
+  right: -16px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -344,4 +372,55 @@ nav {
 .menu-btn img {
   height: 32px;
   width: auto;
+}
+
+.search-input {
+  display: grid;
+  grid-template-columns: min-content 1fr max-content;
+  grid-template-areas:
+    'icon heading addBtn'
+    'search . .';
+  align-items: center;
+  padding: 12px;
+  gap: 12px;
+}
+
+#cart-icon {
+  grid-area: icon;
+  height: 28px;
+  width: auto;
+}
+
+.search-input h2 {
+  grid-area: heading;
+}
+
+#new-item-submit-btn {
+  grid-area: addBtn;
+}
+
+#search-form {
+  grid-area: search;
+  grid-column: span 3;
+}
+
+#search {
+  width: 100%;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-image: url('/search.svg');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+}
+
+#search:focus {
+  outline: none;
+  box-shadow: none;
+  background-image: url('/search.svg');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  background-size: 18px;
 }
