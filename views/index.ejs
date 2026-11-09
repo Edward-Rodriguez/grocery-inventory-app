@@ -28,21 +28,28 @@
           <% items.forEach(item => {  %>
             <div class="item-container">
               <img src="<%= item.img_url || '/no-image.png'%>" alt="<%= item.item_name %>"/>
-              <div class="item-name"><%= item.item_name %></div>
-              <div class="item-quantity"><%= item.quantity_in_stock %> in stock</div>
+              <h3 class="item-name"><%= item.item_name %></h3>
+              <div class="item-quantity">
+                <img src="/inventory.svg" alt="quantity"/>
+                <%= item.quantity_in_stock %> in stock</div>
               <div class="item-brand"><%= item.brand_name ?? 'no-brand'%></div>
               <% if (item.categories && item.categories.length > 0) { %>
-                <% item.categories.forEach(category => {  %>
-                  <span class="item-category"><%= category.name %></span>
-                <% }) %>
+                <div class="category-container">
+                  <% item.categories.forEach(category => {  %>
+                    <span class="item-category"><%= category.name %></span>
+                  <% }) %>
+                </div>
               <% } %>
-              <div class="item-price"><%= item.price %></div>
-              <div class="item-disc-price"><%= item.discounted_price %>
-                <% if(item.discounted_price && item.discounted_price > 0) { %>
-                  <span class="item-disc-percent-off">
-                    (<%= calculatePercentOff(item.discounted_price, item.price) %>% off)
-                  </span>
-                <% } %>
+              <div class="item-price-container">
+                <div class="item-price">$<%= item.price %></div>
+                <div class="item-disc-price">
+                  <% if(item.discounted_price && item.discounted_price > 0) { %>
+                    $<%= item.discounted_price %>
+                    <span class="item-disc-percent-off">
+                      (<%= calculatePercentOff(item.discounted_price, item.price) %>% off)
+                    </span>
+                  <% } %>
+                </div>
               </div>
               <form action="<%= item.item_no %>/edit" method="GET">
                 <button class="edit-btn" type="submit">Edit</button>
@@ -53,5 +60,6 @@
       </div>
     </div>
     <script src="/searchFilter.js"></script>
+    <script src="/categoryLabeler.js"></script>
   </body>
 </html>

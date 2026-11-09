@@ -17,6 +17,8 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
   --main-bg-color: #4c705b;
+  --primary-bg-color: #4d715b;
+  --secondary-bg-color: #eef4f1;
 }
 
 .page-container {
@@ -27,6 +29,7 @@ body {
 .inventory-container {
   display: grid;
   justify-content: center;
+  row-gap: 12px;
 }
 
 #new-item-submit-btn {
@@ -56,13 +59,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-}
-
-img {
-  width: 200px;
-  height: auto;
-  object-fit: cover;
-  object-position: 50% 50%;
 }
 
 .item-category {
@@ -292,19 +288,20 @@ nav {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: var(--main-bg-color);
+  background-color: var(--secondary-bg-color);
   padding: 8px 16px;
+  color: var(--main-bg-color);
 }
 
 #logo-header {
   text-decoration: none;
   display: flex;
-  color: #fff;
+  /* color: #fff; */
   gap: 8px;
 }
 
 #logo-header:visited {
-  color: #fff;
+  color: var(--primary-bg-color);
 }
 
 #logo {
@@ -317,6 +314,7 @@ nav {
   flex-direction: column;
   align-items: flex-end;
   position: relative;
+  color: black;
 }
 
 .dropdown-menu {
@@ -347,6 +345,7 @@ nav {
   align-items: center;
   column-gap: 6px;
   padding: 9px 18px;
+  color: inherit;
 }
 
 .dropdown-menu.show a:hover {
@@ -423,4 +422,248 @@ nav {
   background-position: 10px 10px;
   background-repeat: no-repeat;
   background-size: 18px;
+}
+
+.item-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 150px 1fr 100px;
+  grid-template-rows: repeat(4, min-content);
+  grid-template-areas:
+    'img itemName .'
+    'img brand quantity'
+    'img categories editBtn'
+    'img price .';
+  padding: 10px;
+  border-bottom: 1px solid rgb(228, 228, 228);
+  border-radius: 12px;
+  column-gap: 16px;
+}
+
+.item-container > img {
+  grid-area: img;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  object-position: 50% 50%;
+  transform: scale(0.8);
+  border-radius: 12px;
+  align-self: center;
+}
+
+.item-name {
+  color: #38473a;
+  grid-area: itemName;
+  font-size: 18px;
+  align-self: flex-end;
+  padding-top: 10px;
+}
+
+.item-quantity > img {
+  height: 16px;
+  width: auto;
+}
+
+.item-quantity {
+  grid-area: quantity;
+  align-self: flex-start;
+  display: flex;
+  gap: 8px;
+  place-items: center;
+  font-weight: 600;
+  color: #38473a;
+}
+
+.item-brand {
+  grid-area: brand;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.category-container {
+  grid-area: categories;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 6px;
+  row-gap: 4px;
+}
+
+.item-price-container {
+  grid-area: price;
+  display: flex;
+  column-gap: 20px;
+}
+
+.item-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: #38473a;
+}
+
+.item-disc-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--main-bg-color);
+}
+
+.item-disc-percent-off {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--main-bg-color);
+}
+
+.item-container > form {
+  grid-area: editBtn;
+}
+
+.edit-btn {
+  width: 90%;
+  cursor: pointer;
+  font-weight: 700;
+  border: 1px solid #4c705b3d;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background-color: var(--secondary-bg-color);
+  color: var(--main-bg-color);
+}
+
+.edit-btn:hover {
+  background-color: #4c705b3a;
+}
+
+/* Base category label */
+.item-category {
+  height: min-content;
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  border: none;
+}
+
+/* Dairy */
+.category-dairy {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+/* Baby Items */
+.category-baby {
+  background-color: #fce4ec;
+  color: #ad1457;
+}
+
+/* Baking */
+.category-baking {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+/* Beverages */
+.category-beverages {
+  background-color: #e0f7fa;
+  color: #00838f;
+}
+
+/* Bread & Bakery */
+.category-bread {
+  background-color: #fbe9e7;
+  color: #bf360c;
+}
+
+/* Canned Goods */
+.category-canned {
+  background-color: #eceff1;
+  color: #455a64;
+}
+
+/* Condiments & Spices */
+.category-condiments {
+  background-color: #fff8e1;
+  color: #8d6e00;
+}
+
+/* Deli */
+.category-deli {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+/* Fish & Seafood */
+.category-seafood {
+  background-color: #e1f5fe;
+  color: #0277bd;
+}
+
+/* Frozen Foods */
+.category-frozen {
+  background-color: #e8eaf6;
+  color: #3949ab;
+}
+
+/* Fruits */
+.category-fruits {
+  background-color: #fce4ec;
+  color: #c2185b;
+}
+
+/* Health Care */
+.category-health {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* Household & Cleaning Supplies */
+.category-household {
+  background-color: #e0f2f1;
+  color: #00695c;
+}
+
+/* Meat */
+.category-meat {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+/* Pasta, Rice & Cereal */
+.category-pasta {
+  background-color: #fff8e1;
+  color: #9a6700;
+}
+
+/* Personal Care */
+.category-personal {
+  background-color: #f3e5f5;
+  color: #6a1b9a;
+}
+
+/* Pets */
+.category-pets {
+  background-color: #efebe9;
+  color: #5d4037;
+}
+
+/* Snacks */
+.category-snacks {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+/* Vegetables */
+.category-vegetables {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+/* Produce */
+.category-produce {
+  background-color: #e0f2f1;
+  color: #00796b;
+}
+
+.category-default {
+  background-color: #f1f5f9;
+  color: #475569;
 }
