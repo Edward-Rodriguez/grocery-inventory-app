@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/header.ejs') %>
+  <body>
+    <%- include('partials/nav.ejs') %>
+    <h1><%= title %></h1>
+    <form 
+      id="edit-form" 
+      method="POST" 
+      action="<%= newProduct ? '/new' : '/'+ item.item_no + '/update'%>"
+    >
+    <%- include("partials/errors.ejs") %>
+    <div class="product-information">
+        <img
+        id="image-preview"
+        src="<%= item?.img_url || '/no-image.png'%>"
+        alt="<%= item?.name ?? '' %>" />
+        <p id="img-load-error"></p>
+        <label for="imageUrl">Update Image URL</label>
+      <input type="url" name="imageUrl" id="imageUrl" value="<%= item?.img_url %>"/>
+        <button id="apply-img-btn" type="button">Apply</button>
+         <label for="item_name">Name:</label>
+      <input
+        type="text"
+        name="item_name"
+        id="item_name"
+        value="<%= item?.name ?? '' %>"
+        required />
+      <label for="brandSelect">Brand:</label>
+      <select name="brand" id="brandSelect" required>
+        <option value="">--Please choose a brand--</option>
+        <% if (brands && brands.length > 0 ) { %>
+            <% brands.forEach(brand => { %>
+                <option value="<%= brand.id %>" 
+                  <% if(item.brand_id === brand.id) { %>
+                    selected
+                  <% } %>
+                ><%= brand.name %>
+                </option>
+            <% }); %>
+        <% } %>
+      </select>
+      <a class="manage-link" href="/brands/manage">
+          <div class="manage-link-container" title="Add/Remove brands">
+            <img src="/settings_gray.svg" alt="manage brands"/>
+            Manage Brands
+          </div>
+      </a>
+    </div>
+      <fieldset class="categories">
+        <legend>Categories</legend>
+        <% if (categories && categories.length > 0) { %>
+            <% categories.forEach(category => { %>
+                <label class="category-option">
+                    <input type="checkbox" name="categories" value="<%= category.id %>"  
+                    <% if (item.categories && item.categories.some((itemCategory) => 
+                        itemCategory.id === category.id)) { %> 
+                        checked 
+                    <% } %> /> 
+                    <p><%= category.name %></p>
+                </label>
+            <% }) %>
+        <% } %>  
+      </fieldset> 
+       <a class="manage-link" href="/categories/manage">
+          <div class="manage-link-container" title="Add/Remove categories">
+            <img src="/settings_gray.svg" alt="manage categories"/>
+            Manage Categories
+          </div>
+      </a>
+      <label for="quantity_in_stock">Quantity In Stock:</label>
+        <input
+        type="number"
+        name="quantity_in_stock"
+        min="0"
+        inputmode="numeric"
+        id="quantity_in_stock"
+        value="<%= item.quantity_in_stock ?? 0 %>"
+        required />
+      <label for="price">Price:</label>
+      <span class="currencyInput">
+         <img class="mng-icon" src="/dollar_sign.svg" alt=""/>
+          <input
+            type="number"
+            step="any"
+            name="price"
+            min="0"
+            inputmode="decimal"
+            id="price"
+            value="<%= item.price ?? '' %>"
+            required />
+      </span>
+      <label for="discounted_price">Discount Price:</label>
+      <span class="currencyInput">
+         <img class="mng-icon" src="/dollar_sign.svg" alt=""/>
+          <input
+            type="number"
+            step="any"
+            name="discounted_price"
+            min="0"
+            inputmode="decimal"
+            id="discounted_price"
+            value="<%= item.discounted_price ?? '' %>"/>
+      </span>
+      <button id="submit-edit-btn" type="submit">Save Changes</button>
+    </form>
+    <form action="/<%= item.item_no %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?')">
+        <button id="delete-item-btn" type="submit">Delete Item</button>
+    </form>
+    <script src="/imagePreview.js"></script>
+  </body>
+</html>
