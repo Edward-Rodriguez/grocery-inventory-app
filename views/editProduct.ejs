@@ -8,14 +8,14 @@
         action="<%= newProduct ? '/new' : '/'+ item.item_no + '/update'%>">
         <%- include("partials/errors.ejs") %>
           <div class="product-information">
-            <h3>Product Information</h3>
+            <h2>Product Information</h2>
             <div id="product-info-main">
               <img id="image-preview" src="<%= item?.img_url || '/no-image.png'%>"
                 alt="<%= item?.name ?? '' %>" />
               <div id="product-info-input">
                 <label for="item_name">Name</label>
                 <input type="text" name="item_name" id="item_name"
-                  value="<%= item?.name ?? '' %>" placeholder="Enter item name" required />
+                  value="<%= item?.name ?? '' %>" placeholder="Enter item name..." required />
                 <label for="brandSelect">Brand</label>
                 <select name="brand" id="brandSelect" required>
                   <option value="">--Please choose a brand--</option>

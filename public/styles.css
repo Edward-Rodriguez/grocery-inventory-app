@@ -466,7 +466,9 @@ nav {
 /* Product Information */
 .product-information,
 .categories,
-#inventory-pricing {
+#inventory-pricing,
+#mng-brands-container,
+#mng-categories-container {
   display: flex;
   flex-direction: column;
   padding: 12px;
@@ -518,11 +520,20 @@ nav {
   margin-bottom: 8px;
 }
 
+input::placeholder {
+  color: #888888;
+  font-style: italic;
+  font-size: 0.95rem;
+  opacity: 1;
+  font-weight: 500;
+}
+
 #product-info-input select {
   width: max-content;
   padding: 6px 2px;
   /* border: 2px solid #ccc; */
   border: none;
+  font-weight: 400;
   border-radius: 4px;
   background-color: white;
   font-size: 14px;
@@ -591,6 +602,12 @@ label[for='imageUrl'] {
   gap: 6px;
 }
 
+.categories > p {
+  color: gray;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
 .category-checkboxes {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -614,9 +631,17 @@ label[for='imageUrl'] {
     'stockQuantity stockQuantity'
     'priceLabel discPriceLabel'
     'price discPrice';
+  gap: 6px;
 }
+
 #inventory-pricing h2 {
   grid-area: heading;
+}
+
+#inventory-pricing label {
+  color: gray;
+  font-weight: 700;
+  letter-spacing: 0.05em;
 }
 
 label[for='quantity_in_stock'] {
@@ -759,7 +784,8 @@ label[for='discounted_price'] {
    ========================================================================== */
 #mng-brands-container,
 #mng-categories-container {
-  max-width: 600px;
+  margin: 30px auto;
+  max-width: 480px;
   display: grid;
   grid-template-columns: 1fr 100px;
   grid-template-areas:
@@ -768,6 +794,7 @@ label[for='discounted_price'] {
     'addNewBtn  addNewBtn'
     'list       list';
   align-items: center;
+  gap: 6px;
 }
 
 #mng-brands-container h1,
@@ -785,6 +812,7 @@ label[for='discounted_price'] {
 
 /* Add-new form */
 #add-new-btn-form {
+  margin-top: 12px;
   grid-area: addNewBtn;
   display: grid;
   grid-template-columns: 1fr 100px;
@@ -792,16 +820,30 @@ label[for='discounted_price'] {
 
 #add-new-btn-form label {
   grid-column: span 2;
-  padding-left: 9px;
-  font-size: 18px;
+  color: gray;
   font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 3px;
 }
 
 #add-new-btn-form input {
-  height: 32px;
   padding: 8px;
   border: 1px solid var(--border-light);
-  border-radius: 12px;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+#add-new-btn-form button[type='submit'] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--secondary-bg-color);
+  padding: 8px 24px;
+  border: 1px solid #4c705b3d;
+  border-radius: 8px;
+  font-weight: 700;
+  color: var(--main-bg-color);
+  cursor: pointer;
 }
 
 /* List */
@@ -822,8 +864,12 @@ label[for='discounted_price'] {
     'entry        deleteBtn'
     'productCount deleteBtn';
   padding: 12px;
-  border-bottom: 2px solid var(--border-light);
-  border-radius: 2px;
+}
+
+.brand:not(:last-child),
+.category:not(:last-child) {
+  border-bottom: 1px solid var(--border-light);
+  border-radius: 4px;
 }
 
 .brand h2,
@@ -832,8 +878,25 @@ label[for='discounted_price'] {
 }
 
 .brand p,
-.category p {
-  grid-area: productCount;
+.category p,
+.quantity-label {
+  width: max-content;
+  display: inline-block;
+  height: min-content;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  background-color: #eceff1;
+  color: #38794c;
+}
+
+.quantity-label {
+  justify-self: flex-end;
+  background-color: #eceff1;
+  color: #455a64;
 }
 
 .brand form,
@@ -841,6 +904,10 @@ label[for='discounted_price'] {
   grid-area: deleteBtn;
   align-self: center;
   margin: 0;
+}
+
+.category:last-child h2 {
+  grid-column: span 2;
 }
 
 /* Delete (trash icon) button, revealed on row hover */
