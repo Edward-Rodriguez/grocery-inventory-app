@@ -172,9 +172,10 @@ const updateItemPost = [
       const viewData = await getEditItemData(itemId);
       console.log(errors);
 
-      return res
-        .status(400)
-        .render('editProduct', { ...viewData, errors: errors.array() });
+      return res.status(400).render('editProduct', {
+        ...viewData,
+        errors: errors.array(),
+      });
     }
 
     const {
@@ -202,8 +203,19 @@ const updateItemPost = [
 
 async function deleteItemPost(req, res) {
   const { itemId } = req.params;
-  await db.deleteItemById(itemId);
-  res.redirect('/');
+  const { adminPassword } = req.body;
+
+  if (!adminPassword || adminPassword.trim() !== process.env.ADMINPASSWORD) {
+    const viewData = await getEditItemData(itemId);
+    res.render('editProduct', {
+      ...viewData,
+      openDeleteDialog: true,
+      passwordError: true,
+    });
+  } else {
+    await db.deleteItemById(itemId);
+    res.redirect('/');
+  }
 }
 
 function calculatePercentOff(discounted_price, price) {

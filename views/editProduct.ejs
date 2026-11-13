@@ -90,12 +90,28 @@
           <button id="submit-edit-btn" type="submit">Save Changes</button>
           <a id="cancel" href="/">Cancel</a>
       </form>
-      <form id="delete-item-form" action="/<%= item.item_no %>/delete" method="POST"
-        onsubmit="return confirm('Are you sure you want to delete this item?')">
+      <form id="delete-item-form" action="/<%= item.item_no %>/delete" method="POST">
         <div>Danger Zone</div>
         <p>Permanently delete this product from your inventory.</p>
-        <button id="delete-item-btn" type="submit">Delete Item</button>
+        <button id="delete-item-btn" command="show-modal" commandfor="delete-dialog" type="button">Delete Item</button>
+        <dialog id="delete-dialog" 
+          data-auto-open="<%= typeof openDeleteDialog !== 'undefined' && openDeleteDialog %>"
+        >
+          <h3>Confirm deletion.</h3>
+          <label for="adminPassword">Enter admin password to confirm deletion.</label>
+          <input type="password" name="adminPassword" id="adminPassword" placeholder="Password"/>
+          <% if (typeof passwordError !== 'undefined' && passwordError) { %>
+            <p class="errors">Incorrect password. Please try again.</p>
+          <% } else { %>
+            <p class="dialog-note" >*Note: Item will be permanently deleted.</p>
+            <% } %>
+          <div class="delete-btn-container">
+            <button class="dialog-cancel-btn" commandfor="delete-dialog" command="close" type="button">Cancel</button>
+            <button id="dialog-delete-btn" commandfor="delete-dialog" command="close" type="submit">Confirm Deletion</button>
+          </div>
+        </dialog>
       </form>
       <script src="/imagePreview.js"></script>
+      <script src="/showModal.js"></script>
   </body>
 </html>

@@ -24,7 +24,8 @@
       7.6 Action buttons
       7.7 Delete form
    8. Manage Brands & Categories (manageBrands.ejs, manageCategories.ejs)
-   9. Utilities
+   9. Dialog Box
+   10. Utilities
    ========================================================================== */
 
 /* ==========================================================================
@@ -771,7 +772,7 @@ label[for='discounted_price'] {
   font-weight: 600;
 }
 
-#delete-item-form p {
+#delete-item-form > p {
   color: rgb(88, 88, 88);
   font-size: 13px;
 }
@@ -925,7 +926,80 @@ label[for='discounted_price'] {
 }
 
 /* ==========================================================================
-   9. UTILITIES
+   9. Dialog
+   ========================================================================== */
+#delete-dialog {
+  &::backdrop {
+    background: hsl(0 0 0 / 0.5);
+    backdrop-filter: blur(5px);
+  }
+
+  &[open] {
+    margin: 30vh auto;
+    width: 60vw;
+    max-width: 480px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: #fafafa;
+    border: none;
+    border-radius: 12px;
+  }
+}
+
+#delete-dialog label {
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+
+input[type='password'] {
+  padding: 8px;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.delete-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.dialog-note {
+  font-size: 12px;
+}
+
+.dialog-cancel-btn {
+  padding: 8px 24px;
+  font-weight: 700;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  color: grey;
+  cursor: pointer;
+}
+
+.dialog-cancel-btn:hover {
+  border: 1px solid grey;
+}
+
+#dialog-delete-btn {
+  padding: 8px 24px;
+  font-weight: 700;
+  border: none;
+  background-color: #fa423e;
+  border-radius: 12px;
+  color: #fff;
+  cursor: pointer;
+}
+
+#dialog-delete-btn:hover {
+  background-color: #e02e2a;
+}
+/* ==========================================================================
+   10. UTILITIES
    ========================================================================== */
 .errors {
   color: var(--error-color);
