@@ -5,14 +5,26 @@
    1. Variables
    2. Reset & Base
    3. Layout
-   4. Navigation (nav.ejs)
-   5. Inventory Page (index.ejs)
-      5.1 Search header
-      5.2 Item card
-      5.3 Category labels
-   6. Edit / New Product Page (editProduct.ejs)
-   7. Manage Brands & Categories (manageBrands.ejs, manageCategories.ejs)
-   8. Shared Utilities
+   4. Shared Components
+      4.1 Card
+      4.2 Field label
+      4.3 Secondary button
+      4.4 Pill
+   5. Navigation (nav.ejs)
+   6. Inventory Page (index.ejs)
+      6.1 Search header
+      6.2 Item card
+      6.3 Category labels
+   7. Edit / New Product Page (editProduct.ejs)
+      7.1 Form wrapper
+      7.2 Product information
+      7.3 Manage links
+      7.4 Categories
+      7.5 Inventory & pricing
+      7.6 Action buttons
+      7.7 Delete form
+   8. Manage Brands & Categories (manageBrands.ejs, manageCategories.ejs)
+   9. Utilities
    ========================================================================== */
 
 /* ==========================================================================
@@ -23,6 +35,7 @@
   --primary-bg-color: #4d715b;
   --secondary-bg-color: #eef4f1;
   --text-dark-green: #38473a;
+  --text-muted: gray;
   --border-light: lightgray;
   --error-color: darkred;
 }
@@ -52,6 +65,14 @@ input:focus {
   outline: 1px solid var(--border-light);
 }
 
+input::placeholder {
+  color: #888888;
+  font-size: 0.95rem;
+  font-style: italic;
+  font-weight: 500;
+  opacity: 1;
+}
+
 /* ==========================================================================
    3. LAYOUT
    ========================================================================== */
@@ -61,7 +82,63 @@ input:focus {
 }
 
 /* ==========================================================================
-   4. NAVIGATION
+   4. SHARED COMPONENTS
+   ========================================================================== */
+
+/* ---- 4.1 Card ---- */
+.product-information,
+.categories,
+#inventory-pricing,
+#mng-brands-container,
+#mng-categories-container {
+  padding: 12px;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  background-color: #fafafa;
+}
+
+/* ---- 4.2 Field label ---- */
+.product-information label,
+.categories > p,
+#inventory-pricing label,
+#add-new-btn-form label {
+  color: var(--text-muted);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* ---- 4.3 Secondary button ---- */
+.edit-btn,
+#apply-img-btn,
+#add-new-btn-form button[type='submit'] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #4c705b3d;
+  border-radius: 8px;
+  background-color: var(--secondary-bg-color);
+  color: var(--main-bg-color);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ---- 4.4 Pill ---- */
+.item-category,
+.brand p,
+.category p,
+.quantity-label {
+  display: inline-block;
+  height: min-content;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   5. NAVIGATION
    ========================================================================== */
 nav {
   width: 100%;
@@ -153,10 +230,10 @@ nav {
 }
 
 /* ==========================================================================
-   5. INVENTORY PAGE
+   6. INVENTORY PAGE
    ========================================================================== */
 
-/* ---- 5.1 Search header ---- */
+/* ---- 6.1 Search header ---- */
 .search-input {
   display: grid;
   grid-template-columns: min-content 1fr max-content;
@@ -224,7 +301,7 @@ nav {
   background-size: 18px;
 }
 
-/* ---- 5.2 Item card ---- */
+/* ---- 6.2 Item card ---- */
 .inventory-container {
   display: grid;
   justify-content: center;
@@ -328,17 +405,8 @@ nav {
 
 .edit-btn {
   width: 90%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   column-gap: 6px;
   padding: 8px 12px;
-  border: 1px solid #4c705b3d;
-  border-radius: 8px;
-  background-color: var(--secondary-bg-color);
-  color: var(--main-bg-color);
-  font-weight: 700;
-  cursor: pointer;
 }
 
 .edit-btn:hover {
@@ -350,18 +418,7 @@ nav {
   width: auto;
 }
 
-/* ---- 5.3 Category labels ---- */
-.item-category {
-  display: inline-block;
-  height: min-content;
-  padding: 4px 10px;
-  border: none;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
+/* ---- 6.3 Category labels ---- */
 .category-baby {
   background-color: #fce4ec;
   color: #ad1457;
@@ -448,33 +505,26 @@ nav {
 }
 
 /* ==========================================================================
-   6. EDIT / NEW PRODUCT PAGE
+   7. EDIT / NEW PRODUCT PAGE
    ========================================================================== */
-#edit-form {
+
+/* ---- 7.1 Form wrapper ---- */
+#edit-form,
+#delete-item-form {
   margin: 30px auto;
   max-width: 650px;
+}
+
+#edit-form {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-#img-load-error {
-  color: var(--error-color);
-  font-size: 10px;
-}
-
-/* Product Information */
-.product-information,
-.categories,
-#inventory-pricing,
-#mng-brands-container,
-#mng-categories-container {
+/* ---- 7.2 Product information ---- */
+.product-information {
   display: flex;
   flex-direction: column;
-  padding: 12px;
-  border: 1px solid var(--border-light);
-  border-radius: 12px;
-  background-color: #fafafa;
   gap: 4px;
 }
 
@@ -483,12 +533,6 @@ nav {
   grid-template-columns: min-content 1fr;
   align-items: center;
   column-gap: 12px;
-}
-
-.product-information label {
-  color: gray;
-  font-weight: 700;
-  letter-spacing: 0.05em;
 }
 
 #image-preview {
@@ -509,36 +553,26 @@ nav {
 }
 
 #product-info-input input {
+  margin-bottom: 8px;
   padding: 6px 2px;
-  font-weight: 700;
-  /* border: 2px solid #ccc;
-  border-radius: 4px; */
   border: none;
   border-radius: 6px;
   background-color: white;
   font-size: 16px;
-  margin-bottom: 8px;
-}
-
-input::placeholder {
-  color: #888888;
-  font-style: italic;
-  font-size: 0.95rem;
-  opacity: 1;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 #product-info-input select {
   width: max-content;
   padding: 6px 2px;
-  /* border: 2px solid #ccc; */
   border: none;
-  font-weight: 400;
   border-radius: 4px;
   background-color: white;
   font-size: 14px;
+  font-weight: 400;
 }
 
+/* Image URL row */
 .product-information div:last-child {
   display: flex;
 }
@@ -553,31 +587,27 @@ input::placeholder {
 }
 
 #apply-img-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--secondary-bg-color);
   padding: 8px 24px;
-  border: 1px solid #4c705b3d;
-  border-radius: 8px;
-  font-weight: 700;
-  color: var(--main-bg-color);
-  cursor: pointer;
 }
 
-#img-load-error,
-label[for='imageUrl'] {
+label[for='imageUrl'],
+#img-load-error {
   padding-left: 6px;
 }
 
-/* "Manage brands / categories" links */
+#img-load-error {
+  color: var(--error-color);
+  font-size: 10px;
+}
+
+/* ---- 7.3 Manage links ("Manage brands / categories") ---- */
 .manage-link {
   width: max-content;
   display: block;
+  color: var(--text-muted);
   font-size: 12px;
   font-weight: 600;
   text-decoration: none;
-  color: gray;
 }
 
 .manage-link:hover {
@@ -596,16 +626,11 @@ label[for='imageUrl'] {
   width: auto;
 }
 
-/* Categories / Category checkboxes */
+/* ---- 7.4 Categories ---- */
 .categories {
-  padding: 12px;
+  display: flex;
+  flex-direction: column;
   gap: 6px;
-}
-
-.categories > p {
-  color: gray;
-  font-weight: 700;
-  letter-spacing: 0.05em;
 }
 
 .category-checkboxes {
@@ -621,16 +646,17 @@ label[for='imageUrl'] {
   padding: 8px;
   font-size: 14px;
 }
-/* Inventory / Pricing */
+
+/* ---- 7.5 Inventory & pricing ---- */
 #inventory-pricing {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-areas:
-    'heading heading'
+    'heading            heading'
     'stockQuantityLabel stockQuantityLabel'
-    'stockQuantity stockQuantity'
-    'priceLabel discPriceLabel'
-    'price discPrice';
+    'stockQuantity      stockQuantity'
+    'priceLabel         discPriceLabel'
+    'price              discPrice';
   gap: 6px;
 }
 
@@ -638,21 +664,30 @@ label[for='imageUrl'] {
   grid-area: heading;
 }
 
-#inventory-pricing label {
-  color: gray;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-}
-
 label[for='quantity_in_stock'] {
   grid-area: stockQuantityLabel;
+}
+
+label[for='price'] {
+  grid-area: priceLabel;
+}
+
+label[for='discounted_price'] {
+  grid-area: discPriceLabel;
 }
 
 #quantity_in_stock {
   grid-area: stockQuantity;
 }
 
-/* Price inputs */
+#priceSpan {
+  grid-area: price;
+}
+
+#discPriceSpan {
+  grid-area: discPrice;
+}
+
 #price,
 #discounted_price,
 #quantity_in_stock {
@@ -663,27 +698,10 @@ label[for='quantity_in_stock'] {
   font-size: 14px;
 }
 
-label[for='price'] {
-  grid-area: priceLabel;
-}
-
-#priceSpan {
-  grid-area: price;
-}
-
-label[for='discounted_price'] {
-  grid-area: discPriceLabel;
-}
-
-#discPriceSpan {
-  grid-area: discPrice;
-}
-
 .currencyInput {
   min-height: 32px;
   display: flex;
   align-items: center;
-  flex: 0 0 50%;
 }
 
 .currencyInput input {
@@ -694,7 +712,7 @@ label[for='discounted_price'] {
   outline: none;
 }
 
-/* Save button */
+/* ---- 7.6 Action buttons ---- */
 #submit-edit-btn {
   display: inline-block;
   height: 52px;
@@ -724,7 +742,6 @@ label[for='discounted_price'] {
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.24);
 }
 
-/* Cancel Button */
 #cancel {
   display: grid;
   place-content: center;
@@ -735,18 +752,14 @@ label[for='discounted_price'] {
   border-radius: 0.25rem;
   background-color: rgba(206, 206, 206, 0.815);
   color: rgb(77, 76, 76);
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  text-decoration: none;
   font-size: 16px;
   font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-/* Delete button */
+/* ---- 7.7 Delete form ---- */
 #delete-item-form {
-  margin: 30px auto;
-  max-width: 650px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -760,7 +773,7 @@ label[for='discounted_price'] {
 
 #delete-item-form p {
   color: rgb(88, 88, 88);
-  font-size: 13;
+  font-size: 13px;
 }
 
 #delete-item-btn {
@@ -780,7 +793,7 @@ label[for='discounted_price'] {
 }
 
 /* ==========================================================================
-   7. MANAGE BRANDS & CATEGORIES
+   8. MANAGE BRANDS & CATEGORIES
    ========================================================================== */
 #mng-brands-container,
 #mng-categories-container {
@@ -808,21 +821,21 @@ label[for='discounted_price'] {
 
 .quantity-label {
   grid-area: totalItemsLabel;
+  justify-self: flex-end;
+  background-color: #eceff1;
+  color: #455a64;
 }
 
 /* Add-new form */
 #add-new-btn-form {
-  margin-top: 12px;
   grid-area: addNewBtn;
   display: grid;
   grid-template-columns: 1fr 100px;
+  margin-top: 12px;
 }
 
 #add-new-btn-form label {
   grid-column: span 2;
-  color: gray;
-  font-weight: 700;
-  letter-spacing: 0.05em;
   margin-bottom: 3px;
 }
 
@@ -834,16 +847,7 @@ label[for='discounted_price'] {
 }
 
 #add-new-btn-form button[type='submit'] {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--secondary-bg-color);
   padding: 8px 24px;
-  border: 1px solid #4c705b3d;
-  border-radius: 8px;
-  font-weight: 700;
-  color: var(--main-bg-color);
-  cursor: pointer;
 }
 
 /* List */
@@ -878,25 +882,11 @@ label[for='discounted_price'] {
 }
 
 .brand p,
-.category p,
-.quantity-label {
+.category p {
+  grid-area: productCount;
   width: max-content;
-  display: inline-block;
-  height: min-content;
-  padding: 4px 10px;
-  border: none;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
   background-color: #eceff1;
   color: #38794c;
-}
-
-.quantity-label {
-  justify-self: flex-end;
-  background-color: #eceff1;
-  color: #455a64;
 }
 
 .brand form,
@@ -906,6 +896,7 @@ label[for='discounted_price'] {
   margin: 0;
 }
 
+/* "Uncategorized" row (last item, no delete button) */
 .category:last-child h2 {
   grid-column: span 2;
 }
@@ -934,7 +925,7 @@ label[for='discounted_price'] {
 }
 
 /* ==========================================================================
-   8. SHARED UTILITIES
+   9. UTILITIES
    ========================================================================== */
 .errors {
   color: var(--error-color);
