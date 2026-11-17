@@ -928,7 +928,8 @@ label[for='discounted_price'] {
 /* ==========================================================================
    9. Dialog
    ========================================================================== */
-#delete-dialog {
+#delete-dialog,
+#save-dialog {
   &::backdrop {
     background: hsl(0 0 0 / 0.5);
     backdrop-filter: blur(5px);
@@ -948,7 +949,7 @@ label[for='discounted_price'] {
   }
 }
 
-#delete-dialog label {
+dialog label {
   color: var(--text-muted);
   font-weight: 700;
   font-size: 13px;
@@ -985,7 +986,8 @@ input[type='password'] {
   border: 1px solid grey;
 }
 
-#dialog-delete-btn {
+#dialog-delete-btn,
+#dialog-save-btn {
   padding: 8px 24px;
   font-weight: 700;
   border: none;
@@ -995,7 +997,8 @@ input[type='password'] {
   cursor: pointer;
 }
 
-#dialog-delete-btn:hover {
+#dialog-delete-btn:hover,
+#dialog-save-btn:hover {
   background-color: #e02e2a;
 }
 /* ==========================================================================

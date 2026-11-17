@@ -87,30 +87,53 @@
                 value="<%= item.discounted_price ?? '' %>" />
             </span>
           </div>
-          <button id="submit-edit-btn" type="submit">Save Changes</button>
+          <button id="submit-edit-btn" 
+          <% if (typeof openSaveDialog !== 'undefined' && openSaveDialog) { %> 
+            command="show-modal" commandfor="save-dialog" type="button"
+          <% } else { %> 
+            type="submit"
+          <% } %>>Save Changes</button>
           <a id="cancel" href="/">Cancel</a>
+          <dialog id="save-dialog" 
+            data-auto-open="<%= typeof openSaveDialog !== 'undefined' && openSaveDialog %>"
+          >
+            <h3>Confirm update.</h3>
+            <label for="saveAdminPassword">Enter admin password to confirm changes.</label>
+            <input type="password" name="saveAdminPassword" id="saveAdminPassword" placeholder="Password"/>
+            <% if (typeof savePasswordError !== 'undefined' && savePasswordError) { %>
+              <p class="errors">Incorrect password. Please try again.</p>
+            <% } else { %>
+              <p class="dialog-note" >*Note: These changes cannot be undone. You can edit the item again later if needed.</p>
+              <% } %>
+            <div class="delete-btn-container">
+              <button class="dialog-cancel-btn" commandfor="save-dialog" command="close" type="button">Cancel</button>
+              <button id="dialog-save-btn" commandfor="save-dialog" command="close" type="submit">Confirm Update</button>
+            </div>
+          </dialog>
       </form>
-      <form id="delete-item-form" action="/<%= item.item_no %>/delete" method="POST">
-        <div>Danger Zone</div>
-        <p>Permanently delete this product from your inventory.</p>
-        <button id="delete-item-btn" command="show-modal" commandfor="delete-dialog" type="button">Delete Item</button>
-        <dialog id="delete-dialog" 
-          data-auto-open="<%= typeof openDeleteDialog !== 'undefined' && openDeleteDialog %>"
-        >
-          <h3>Confirm deletion.</h3>
-          <label for="adminPassword">Enter admin password to confirm deletion.</label>
-          <input type="password" name="adminPassword" id="adminPassword" placeholder="Password"/>
-          <% if (typeof passwordError !== 'undefined' && passwordError) { %>
-            <p class="errors">Incorrect password. Please try again.</p>
-          <% } else { %>
-            <p class="dialog-note" >*Note: Item will be permanently deleted.</p>
-            <% } %>
-          <div class="delete-btn-container">
-            <button class="dialog-cancel-btn" commandfor="delete-dialog" command="close" type="button">Cancel</button>
-            <button id="dialog-delete-btn" commandfor="delete-dialog" command="close" type="submit">Confirm Deletion</button>
-          </div>
-        </dialog>
-      </form>
+      <% if (!newProduct) { %>
+        <form id="delete-item-form" action="/<%= item.item_no %>/delete" method="POST">
+          <div>Danger Zone</div>
+          <p>Permanently delete this product from your inventory.</p>
+          <button id="delete-item-btn" command="show-modal" commandfor="delete-dialog" type="button">Delete Item</button>
+          <dialog id="delete-dialog" 
+            data-auto-open="<%= typeof openDeleteDialog !== 'undefined' && openDeleteDialog %>"
+          >
+            <h3>Confirm deletion.</h3>
+            <label for="adminPassword">Enter admin password to confirm deletion.</label>
+            <input type="password" name="adminPassword" id="adminPassword" placeholder="Password"/>
+            <% if (typeof passwordError !== 'undefined' && passwordError) { %>
+              <p class="errors">Incorrect password. Please try again.</p>
+            <% } else { %>
+              <p class="dialog-note" >*Note: Item will be permanently deleted.</p>
+              <% } %>
+            <div class="delete-btn-container">
+              <button class="dialog-cancel-btn" commandfor="delete-dialog" command="close" type="button">Cancel</button>
+              <button id="dialog-delete-btn" commandfor="delete-dialog" command="close" type="submit">Confirm Deletion</button>
+            </div>
+          </dialog>
+        </form>
+      <% } %>
       <script src="/imagePreview.js"></script>
       <script src="/showModal.js"></script>
   </body>

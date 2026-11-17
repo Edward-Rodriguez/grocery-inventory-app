@@ -60,6 +60,20 @@ async function getAllCategories() {
   }
 }
 
+async function getCategoryById(categoryId) {
+  try {
+    const { rows } = await pool.query(
+      `SELECT * FROM categories
+       WHERE id = $1`,
+      [categoryId],
+    );
+    return rows[0];
+  } catch (err) {
+    console.error('Database query failed:', err.message);
+    throw err;
+  }
+}
+
 async function getCategoryProductCount(categoryId) {
   try {
     const { rows } = await pool.query(
@@ -262,4 +276,5 @@ export {
   deleteCategoryById,
   getCategoryProductCount,
   getUncategorizedItems,
+  getCategoryById,
 };

@@ -162,19 +162,64 @@ async function getEditItemData(itemId) {
   };
 }
 
+async function getFormValues(formData, itemId) {
+  const editData = await getEditItemData(itemId);
+  const newItemName = formData.item_name;
+  const newBrand = editData.brands.find(
+    (brand) => brand.id === Number(formData.brand),
+  );
+  const newPrice = formData.price;
+  const newDiscountedPrice = formData.discounted_price;
+  const newQuantity = formData.quantity_in_stock;
+  const newImgUrl = formData.imageUrl;
+  const updatedItem = {
+    name: newItemName,
+    brand: newBrand,
+    price: newPrice,
+    discounted_price: newDiscountedPrice,
+    quantity_in_stock: newQuantity,
+    img_url: newImgUrl,
+  };
+  editData.item = { ...editData.item, ...updatedItem };
+
+  await Promise.all(
+    formData.categories.map(async (category) => {
+      if (
+        !editData.item.categories.some((cat) => cat.id === Number(category))
+      ) {
+        const newCategory = await db.getCategoryById(category);
+        editData.item.categories.push(newCategory);
+      }
+    }),
+  );
+
+  return {
+    ...editData,
+  };
+}
+
 const updateItemPost = [
   validateItem,
   async (req, res) => {
     const errors = validationResult(req);
     const { itemId } = req.params;
+    const { saveAdminPassword } = req.body;
+    const userFormData = await getFormValues(req.body, itemId);
 
     if (!errors.isEmpty()) {
-      const viewData = await getEditItemData(itemId);
-      console.log(errors);
-
       return res.status(400).render('editProduct', {
-        ...viewData,
+        ...userFormData,
         errors: errors.array(),
+        openSaveDialog: false,
+      });
+    } else if (
+      !saveAdminPassword ||
+      saveAdminPassword.trim() !== process.env.ADMINPASSWORD
+    ) {
+      return res.render('editProduct', {
+        ...userFormData,
+        openSaveDialog: true,
+        savePasswordError: saveAdminPassword === undefined ? false : true,
       });
     }
 
